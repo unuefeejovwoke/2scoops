@@ -68,6 +68,8 @@ CORS_ORIGIN_WHITELIST = (
     'http://localhost:8000',
 )
 
+#crsf
+# CSRF_TRUSTED_ORIGINS = ["localhost:3000"]
 
 ROOT_URLCONF = 'todo_project.urls'
 
