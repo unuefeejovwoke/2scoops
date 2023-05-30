@@ -5,7 +5,7 @@ name = "pypi"
 
 [packages]
 django = "*"
-djangorestframework = "<3.13,>=3.12"
+djangorestframework = "*"
 django-rest-auth = "<0.10,>=0.9"
 django-allauth = "*"
 
