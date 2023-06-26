@@ -17,37 +17,27 @@
             <thead>
                 <tr>
                 <th scope="col">#</th>
-                <th scope="col">First</th>
-                <th scope="col">Last</th>
-                <th scope="col">Handle</th>
+                <th scope="col">Full Name</th>
+                <th scope="col">Disgnation</th>
+                <th scope="col">Phone Number</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                <th scope="row">1</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-                </tr>
-                <tr>
-                <th scope="row">2</th>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td>@fat</td>
-                </tr>
-                <tr>
-                <th scope="row">3</th>
-                <td colspan="2">Larry the Bird</td>
-                <td>@twitter</td>
-                </tr>
+                {% for employee in employees %}
+                    <tr>
+                    <th>{{ forloop.counter}}</th>
+                    <td><a href="{% url 'employee_detail' employee.id %}">{{ employee.first_name}} {{ employee.last_name}}</a></td>
+                    <td>{{employee.designation}}</td>
+                    <td>{{employee.phone_number}}</td>
+                    </tr>
+                {% endfor %}
+                
             </tbody>
         
           
         </table>
     </div>
 
-    {% for employee in employees %}
-        <h3>{{ employee }}</h3>
-    {% endfor %}
+   
 </body>
 </html>
