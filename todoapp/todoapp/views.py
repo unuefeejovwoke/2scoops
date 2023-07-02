@@ -2,9 +2,13 @@ from django.shortcuts import redirect, render
 from django.http import HttpResponse
 
 from todoapp.models import Todo
+from django.http import JsonResponse
 
-# Create your views here.
 def addtask(request):
-    task = request.POST['task']
-    Todo.objects.create(tasks=task)
-    return redirect('home')
+    if request.method == 'POST':
+        task = request.POST.get('task')
+        Todo.objects.create(tasks=task)
+        return JsonResponse({'task': task})
+    else:
+        return render(request, 'home.html')
+
