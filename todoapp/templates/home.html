@@ -28,6 +28,7 @@
             <h4>My Day</h4>
             <p class="text-muted">{% now "jS F Y" %}</p>
             <!-- List of all the tasks for the day -->
+            <!-- List of all the tasks for the day -->
             <div class="col-md-7 col-lg-7" style="height: 450px; overflow: scroll;">
                 <div id="taskList">
                     {% for task in tasks %}
@@ -35,7 +36,7 @@
                             <div class="card-body">
                                 {{ task.tasks }}
                                 <span style="position: relative; float: right;">
-                                    <a href="{% url 'mark_as_done' task.pk %}" class="btn btn-success"><i class="fa fa-check"></i> Mark as Done</a>
+                                    <a class="btn btn-success mark-done-btn" data-task-id="{{ task.id }}"><i class="fa fa-check"></i> Mark as Done</a>
                                     <a class="btn btn-danger"><i class="fa fa-trash"></i></a>
                                     <a class="btn btn-primary"><i class="fa fa-pencil"></i></a>
                                 </span>
@@ -48,15 +49,17 @@
             <div class="col-md-5 col-lg-5">
                 <h5>Completed Tasks</h5>
                 <!-- List of all the tasks that have completed -->
-                {% for task in completed_tasks %}
-                <div class="card m-1">
-                    <div class="card-body">
-                        {{task.tasks}}
-                    </div>
+                <div id="completedTaskList">
+                    {% for task in completed_tasks %}
+                        <div class="card m-1">
+                            <div class="card-body">
+                                {{ task.tasks }}
+                            </div>
+                        </div>
+                    {% endfor %}
                 </div>
-                {% endfor %}
             </div>
-        </div>
+
         <div class="row">
             <div class="col-md-6 col-lg-6 p-0" style="position: absolute; bottom: 50px;">
                 <!-- To Do Form -->
@@ -96,6 +99,35 @@
                 });
             });
         });
+
+        $(document).ready(function() {
+            // Handle the "Mark as Done" button click
+            $('#taskList').on('click', '.mark-done-btn', function() {
+                var taskId = $(this).data('task-id');
+                var taskElement = $(this).closest('.card');
+        
+                // Send an AJAX request to mark the task as done
+                $.ajax({
+                    type: 'POST',
+                    url: '{% url 'mark_as_done' pk=0 %}'.replace('0', taskId),
+                    data: {
+                        'csrfmiddlewaretoken': '{{ csrf_token }}'
+                    },
+                    success: function(response) {
+                        // Move the task to the completed tasks section
+                        var completedTask = '<div class="card m-1"><div class="card-body">' + response.task + '</div></div>';
+                        $('#completedTaskList').prepend(completedTask);
+        
+                        // Remove the task from the task list
+                        taskElement.remove();
+                    }
+                });
+            });
+        });
+        
+        
+        
+        
         
         
     </script>

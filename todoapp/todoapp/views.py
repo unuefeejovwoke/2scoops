@@ -16,5 +16,4 @@ def mark_as_done(request, pk):
     task = get_object_or_404(Todo, pk=pk)
     task.is_completed = True
     task.save()
-    return HttpResponse(task)
-
+    return JsonResponse({'task':task.tasks})
