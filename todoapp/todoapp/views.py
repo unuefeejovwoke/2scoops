@@ -1,4 +1,4 @@
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404, redirect, render
 from django.http import HttpResponse
 
 from todoapp.models import Todo
@@ -11,4 +11,10 @@ def addtask(request):
         return JsonResponse({'task': task})
     else:
         return render(request, 'home.html')
+    
+def mark_as_done(request, pk):
+    task = get_object_or_404(Todo, pk=pk)
+    task.is_completed = True
+    task.save()
+    return HttpResponse(task)
 
