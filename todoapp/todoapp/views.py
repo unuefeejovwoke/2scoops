@@ -1,6 +1,10 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.http import HttpResponse
+
+from todoapp.models import Todo
 
 # Create your views here.
 def addtask(request):
-    return HttpResponse("Task added")
+    task = request.POST['task']
+    Todo.objects.create(tasks=task)
+    return redirect('home')
