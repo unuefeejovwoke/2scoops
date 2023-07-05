@@ -27,9 +27,12 @@ def unmark(request, pk):
 def edit_task(request, pk): 
     get_task = get_object_or_404(Todo, pk=pk)
     if request.method == "POST": 
-        return
+        new_task = request.POST['tasks']
+        get_task.tasks = new_task
+        get_task.save()
+        return redirect('home')
     else:
         context = {
             'get_task': get_task,
         }
-    return render(request, 'edit_task.html', context)
+        return render(request, 'edit_task.html', context)
