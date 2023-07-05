@@ -7,5 +7,6 @@ urlpatterns = [
     #undone task
     path('unmark/<int:pk>/', views.unmark, name="unmark"),
     #edit task url
-    path('edit_task/<int:pk>/', views.edit_task, name="edit_task")
+    path('edit_task/<int:pk>/', views.edit_task, name="edit_task"),
+    path('delete_task/<int:pk>/', views.delete_task, name="delete_task"),
 ]
