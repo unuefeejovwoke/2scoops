@@ -54,6 +54,7 @@
                         <div class="card m-1">
                             <div class="card-body">
                                 {{ task.tasks }}
+                                <a {% url 'unmark' task.id %} class="btn btn-primary"><i class="fa fa-pencils"></i>Unmark</a>
                             </div>
                         </div>
                     {% endfor %}
