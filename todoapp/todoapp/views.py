@@ -22,4 +22,4 @@ def unmark(request, pk):
     task = get_object_or_404(Todo, pk=pk)
     task.is_completed = False
     task.save()
-    return render(request, 'home.html')
+    return redirect('home')
