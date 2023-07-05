@@ -103,12 +103,13 @@
             });
         });
 
+
         $(document).ready(function() {
             // Handle the "Mark as Done" button click
             $('#taskList').on('click', '.mark-done-btn', function() {
                 var taskId = $(this).data('task-id');
                 var taskElement = $(this).closest('.card');
-        
+    
                 // Send an AJAX request to mark the task as done
                 $.ajax({
                     type: 'POST',
@@ -118,15 +119,18 @@
                     },
                     success: function(response) {
                         // Move the task to the completed tasks section
-                        var completedTask = '<div class="card m-1"><div class="card-body">' + response.task + '</div></div>';
+                        var completedTask = '<div class="card m-1"><div class="card-body">' + response.task + '<span style="position: relative; float: right;"><a href="/todo/unmark/' + taskId + '/" class="btn btn-danger"><i class="fa fa-times"></i>Mark as Undone</a></span></div></div>';
                         $('#completedTaskList').prepend(completedTask);
-        
+    
                         // Remove the task from the task list
                         taskElement.remove();
                     }
                 });
             });
         });
+       
+        
+        
         
         
     </script>
